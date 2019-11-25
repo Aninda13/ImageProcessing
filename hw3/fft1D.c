@@ -37,14 +37,14 @@ void fft1D(complexP q1, int dir, complexP q2)
 	}
 	else {
 		N2 = N / 2;
-	//	qa = (complexP)malloc(sizeof(complexS));
-		qa = malloc(sizeof(*qa));
+		qa = (complexP)malloc(sizeof(complexS));
+	//	qa = malloc(sizeof(*qa));
 		qa -> len = N2;
 		qa -> real = (float *)malloc(sizeof(float) * qa -> len);
 		qa -> imag = (float *)malloc(sizeof(float) * qa -> len);
 
-	//	qb = (complexP)malloc(sizeof(complexS));
-		qb = malloc(sizeof(*qb));
+		qb = (complexP)malloc(sizeof(complexS));
+	//	qb = malloc(sizeof(*qb));
 		qb -> len = N2;
 		qb -> real = (float *)malloc(sizeof(float) * qb -> len);
 		qb -> imag = (float *)malloc(sizeof(float) * qb -> len);
@@ -135,7 +135,7 @@ int main(int argc, char* argv[]) {
 		
 		// input
 		for (int i = 0; i < N; i++) {
-			fscanf(IN, "%f %f", &q1->real[i], q1->imag[i]);
+			fscanf(IN, "%f %f", &q1->real[i], &q1->imag[i]);
 		}// Fast FT
 		fft1D(q1, dir, q2);
 		// outstream
