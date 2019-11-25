@@ -37,12 +37,14 @@ void fft1D(complexP q1, int dir, complexP q2)
 	}
 	else {
 		N2 = N / 2;
-		qa = (complexP)malloc(sizeof(complexS));
+	//	qa = (complexP)malloc(sizeof(complexS));
+		qa = malloc(sizeof(*qa));
 		qa -> len = N2;
 		qa -> real = (float *)malloc(sizeof(float) * qa -> len);
 		qa -> imag = (float *)malloc(sizeof(float) * qa -> len);
 
-		qb = (complexP)malloc(sizeof(complexS));
+	//	qb = (complexP)malloc(sizeof(complexS));
+		qb = malloc(sizeof(*qb));
 		qb -> len = N2;
 		qb -> real = (float *)malloc(sizeof(float) * qb -> len);
 		qb -> imag = (float *)malloc(sizeof(float) * qb -> len);
@@ -116,7 +118,7 @@ int main(int argc, char* argv[]) {
 		N = h;
 
 		//Length of the list must be a power of 2.
-		if (isPowerof_Two(N)) {
+		if (!isPowerof_Two(N)) {
 			printf("N is not power of 2.");
 			return 0;
 		}
@@ -127,17 +129,17 @@ int main(int argc, char* argv[]) {
 		q1->imag = malloc(N * sizeof(float));
 		//Init q2
 		complexP q2 = malloc(sizeof(*q2));
-		q2->len = N;
+		q2->len = h;
 		q2->real = malloc(N * sizeof(float));
 		q2->imag = malloc(N * sizeof(float));
 		
 		// input
 		for (int i = 0; i < N; i++) {
-			fscanf(IN, "%d %d\n", &q1->real[i], q2->imag[i]);
+			fscanf(IN, "%f %f", &q1->real[i], q1->imag[i]);
 		}// Fast FT
 		fft1D(q1, dir, q2);
 		// outstream
-		fprintf(OUT, "%f %f\n", w, h);
+		fprintf(OUT, "%d %d\n", w, h);
 		
 		int N_q2 = q2->len;
 		for (int i = 0; i < N_q2; i++) {
